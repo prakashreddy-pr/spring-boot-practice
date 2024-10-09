@@ -20,7 +20,7 @@ public class StudentDetails {
     @PostMapping(value = "/student/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createStudent(@Validated @RequestBody Student student) {
         Student createdStudent = studentServices.saveStudent(student);
-        return ResponseEntity.ok(createdStudent); // 201 Created
+        return ResponseEntity.status(201).body(createdStudent); // 201 Created
     }
 
     @GetMapping(value = "/student/{name}/details", consumes = MediaType.APPLICATION_JSON_VALUE)
