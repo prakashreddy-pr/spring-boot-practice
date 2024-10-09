@@ -1,4 +1,4 @@
-package com.shool.demo.validator;
+package com.school.student.validator;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.shool.demo.validator;
+package com.school.student.validator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

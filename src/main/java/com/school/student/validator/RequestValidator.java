@@ -1,7 +1,7 @@
-package com.shool.demo.validator;
+package com.school.student.validator;
 
-import com.shool.demo.entities.BadRequest;
-import com.shool.demo.entities.Student;
+import com.school.student.entities.BadRequest;
+import com.school.student.entities.Student;
 import jakarta.validation.Constraint;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
-package com.shool.demo.repositories;
+package com.school.student.repositories;
 
-import com.shool.demo.entities.Student;
+import com.school.student.entities.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

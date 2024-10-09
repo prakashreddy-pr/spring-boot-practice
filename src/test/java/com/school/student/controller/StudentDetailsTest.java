@@ -1,9 +1,9 @@
-package com.shool.demo.controller;
+package com.school.student.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.shool.demo.Services.StudentServices;
-import com.shool.demo.controllers.StudentDetails;
-import com.shool.demo.entities.Student;
+import com.school.student.controllers.StudentDetails;
+import com.school.student.entities.Student;
+import com.school.student.Services.StudentServices;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,10 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.web.servlet.function.RequestPredicates.POST;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @AutoConfigureMockMvc

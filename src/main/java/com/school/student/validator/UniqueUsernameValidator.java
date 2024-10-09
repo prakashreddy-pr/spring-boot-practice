@@ -1,9 +1,9 @@
-package com.shool.demo.validator;
+package com.school.student.validator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.shool.demo.repositories.StudentRepository;
+import com.school.student.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class UniqueUsernameValidator implements ConstraintValidator<UniqueName, String> {

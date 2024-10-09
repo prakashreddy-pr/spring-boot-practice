@@ -1,6 +1,6 @@
-package com.shool.demo.entities;
+package com.school.student.entities;
 
-import com.shool.demo.validator.UniqueName;
+import com.school.student.validator.UniqueName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 

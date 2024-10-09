@@ -1,8 +1,8 @@
-package com.shool.demo.controllers;
+package com.school.student.controllers;
 
-import com.shool.demo.DTO.StudentDTO;
-import com.shool.demo.Services.StudentServices;
-import com.shool.demo.entities.Student;
+import com.school.student.DTO.StudentDTO;
+import com.school.student.Services.StudentServices;
+import com.school.student.entities.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

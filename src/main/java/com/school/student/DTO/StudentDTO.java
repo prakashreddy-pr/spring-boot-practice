@@ -1,4 +1,4 @@
-package com.shool.demo.DTO;
+package com.school.student.DTO;
 
 import java.util.UUID;
 

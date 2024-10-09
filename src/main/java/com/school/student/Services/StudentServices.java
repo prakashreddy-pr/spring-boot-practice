@@ -1,9 +1,9 @@
-package com.shool.demo.Services;
+package com.school.student.Services;
 
-import com.shool.demo.DTO.StudentDTO;
-import com.shool.demo.entities.Student;
-import com.shool.demo.repositories.StudentRepository;
-import com.shool.demo.validator.StudentNameAlreadyExistsException;
+import com.school.student.DTO.StudentDTO;
+import com.school.student.entities.Student;
+import com.school.student.repositories.StudentRepository;
+import com.school.student.validator.StudentNameAlreadyExistsException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
