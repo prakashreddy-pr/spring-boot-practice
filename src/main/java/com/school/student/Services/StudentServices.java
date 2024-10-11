@@ -44,7 +44,7 @@ public class StudentServices {
         Student student1 = studentRepository.save(student);
         System.out.println(" Type of object  " + student1.getClass().getName());
         System.out.println(student1);
-        kafkaTopic.send("saveStudent", " Final Test message");
+        kafkaTopic.send("saveStudent", "Message from Kfka Topic");
         return student1;
     }
 
