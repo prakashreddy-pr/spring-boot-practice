@@ -1,5 +1,6 @@
 package com.school.student.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.school.student.validator.UniqueName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -12,49 +13,58 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @JsonProperty("uuid")
     private UUID uuid;
     @NotBlank(message = "{SC-00001}")
     @UniqueName
+    @JsonProperty("name")
     private String name;
-   // @Size(max = 3, message = "{SC-00002}")
+    // @Size(max = 3, message = "{SC-00002}")
+    @JsonProperty("fatherName")
     private String fatherName;
+    @JsonProperty("motherName")
     private String motherName;
+    @JsonProperty("address")
     private String address;
+    @JsonProperty("teacher")
     private String teacher;
+    @JsonProperty("version")
     private int version;
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + uuid +
-                ", name='" + name + '\'' +
-                ", fatherName='" + fatherName + '\'' +
-                ", motherName='" + motherName + '\'' +
-                ", address='" + address + '\'' +
-                ", teacher='" + teacher + '\'' +
-                ", version="+version +
-                '}';
-    }
+ //   @Override
+//    public String toString() {
+//        return "Student{" +
+//                "id=" + uuid +
+//                ", name='" + name + '\'' +
+//                ", fatherName='" + fatherName + '\'' +
+//                ", motherName='" + motherName + '\'' +
+//                ", address='" + address + '\'' +
+//                ", teacher='" + teacher + '\'' +
+//                ", version=" + version +
+//                '}';
+//    }
 
     public Student() {
     }
 
     // Parameterized constructor
-    public Student( String name, String fatherName, String motherName, String address, String teacher) {
+    public Student(String name, String fatherName, String motherName, String address, String teacher) {
         this.name = name;
         this.fatherName = fatherName;
         this.motherName = motherName;
         this.address = address;
         this.teacher = teacher;
-      //  this.uuid = uuid;
+        //  this.uuid = uuid;
     }
 
-    public void setUuid(UUID uuid){
+    public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
-    public UUID getUuid(){
+
+    public UUID getUuid() {
         return uuid;
     }
+
     // Getters and Setters...
     public void setVersion(int version) {
         this.version = version;

@@ -1,24 +1,32 @@
 package com.school.student.Services;
 
-import com.school.student.DTO.StudentDTO;
 import com.school.student.entities.Student;
 import com.school.student.repositories.StudentRepository;
 import com.school.student.validator.StudentNameAlreadyExistsException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.annotation.EnableKafka;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 import java.util.List;
 import java.util.Random;
 
+import org.springframework.kafka.core.KafkaTemplate;
+
 @Service
+@EnableKafka
 public class StudentServices {
 
     @Autowired
+    private KafkaTemplate<String, String> kafkaTopic;
+    @Autowired
     private StudentRepository studentRepository;
-    private Random random = new Random();
+    private final Random random = new Random();
+
+    // Log4j log4j4
 
     @Transactional
     public Student saveStudent(Student student) {
@@ -33,7 +41,16 @@ public class StudentServices {
             throw new StudentNameAlreadyExistsException("Student name already exists: " + student.getName());
         }
         student.setVersion(1);
-        return studentRepository.save(student);
+        Student student1 = studentRepository.save(student);
+        System.out.println(" Type of object  " + student1.getClass().getName());
+        System.out.println(student1);
+        kafkaTopic.send("saveStudent", " Final Test message");
+        return student1;
+    }
+
+    @KafkaListener(topics = "saveStudent", groupId = "my-group-id")
+    public void kafkaListener(String message) {
+        System.out.println("Message received " + message);
     }
 
     @CircuitBreaker(name = "myService", fallbackMethod = "fallbackMethod")
@@ -49,17 +66,8 @@ public class StudentServices {
         return "Fallback: Service is temporarily unavailable.";
     }
 
-    public StudentDTO getStudentDetails(String name) {
-        //   System.out.println("Student details " + studentRepository.getReferenceById(id));
-        Student student = (Student) studentRepository.findByName(name);
-        StudentDTO studentDTO = new StudentDTO();
-        studentDTO.setTeacher(student.getTeacher());
-        studentDTO.setAddress(student.getAddress());
-        studentDTO.setFatherName(student.getFatherName());
-        studentDTO.setMotherName(student.getMotherName());
-        studentDTO.setName(student.getName());
-        studentDTO.setUuid(student.getUuid());
-        return studentDTO;
+    public List<Student> getStudentDetails(String name) {
+        return studentRepository.findByName(name);
     }
 
     public List<Student> getAllStudentDetails(String name) {

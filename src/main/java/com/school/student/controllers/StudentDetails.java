@@ -24,7 +24,7 @@ public class StudentDetails {
     }
 
     @GetMapping(value = "/student/{name}/details", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<StudentDTO> getStudentDetails(@PathVariable String name) {
+    public ResponseEntity<List<Student>> getStudentDetails(@PathVariable String name) {
         return ResponseEntity.status(200).body(studentServices.getStudentDetails(name));
     }
 
