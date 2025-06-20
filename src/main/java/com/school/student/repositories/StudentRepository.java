@@ -10,7 +10,9 @@ import java.util.UUID;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, UUID> {
     List<Student> findByName(String name);
+
     List<Student> findByNameContainingIgnoreCase(String name);
+
     boolean existsByName(String name);  // Custom query to check for duplicates
 
 }

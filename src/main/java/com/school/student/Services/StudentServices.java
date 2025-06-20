@@ -23,7 +23,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 public class StudentServices {
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTopic;
+    private KafkaTemplate<String, Student> kafkaTopic;
     @Autowired
     private StudentRepository studentRepository;
     private final Random random = new Random();
@@ -34,30 +34,19 @@ public class StudentServices {
 
     @Transactional
     public Student saveStudent(Student student) {
-//        Student student = new Student();
-//        student.setName(studentDTO.getName());
-//        student.setFatherName(studentDTO.getFatherName());
-//        student.setMotherName(studentDTO.getMotherName());
-//        student.setAddress(studentDTO.getAddress());
-//        student.setTeacher(studentDTO.getTeacher());
-//        student.setVersion(1);
-        if (studentRepository.existsByName(student.getName())) {
+        if (studentRepository.existsByName(student.getName()))
             throw new StudentNameAlreadyExistsException("Student name already exists: " + student.getName());
-        }
-
         ClassEntity classEntity = classRepository.findByClassName("8th Standard");
         student.setVersion(1);
         student.setClassEntity(classEntity);
         Student student1 = studentRepository.save(student);
-        System.out.println(" Type of object  " + student1.getClass().getName());
-        System.out.println(student1);
-        kafkaTopic.send("saveStudent", "Message from Kfka Topic");
+        kafkaTopic.send("saveStudent", student1);
         return student1;
     }
 
-    @KafkaListener(topics = "saveStudent", groupId = "my-group-id")
-    public void kafkaListener(String message) {
-        System.out.println("Message received " + message);
+    @KafkaListener(topics = "saveStudent", groupId = "my-group-2")
+    public void kafkaListener(Student student) {
+        System.out.println("Message received student service class" + student);
     }
 
     @CircuitBreaker(name = "myService", fallbackMethod = "fallbackMethod")

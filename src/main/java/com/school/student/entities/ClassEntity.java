@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.school.student.validator.UniqueName;
 import jakarta.persistence.*;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +25,8 @@ public class ClassEntity {
     private List<Student> students;
 
     // Constructors, Getters, Setters
-    public ClassEntity() {}
+    public ClassEntity() {
+    }
 
     public ClassEntity(String className) {
         this.className = className;

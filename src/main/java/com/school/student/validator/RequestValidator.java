@@ -24,12 +24,12 @@ public class RequestValidator {
         badRequest.setErrorMessage(ex.getMessage());
         badRequest.setField("name");
         badRequest.setErrorCode("66666");
-        return  ResponseEntity.badRequest().body(badRequest);
+        return ResponseEntity.badRequest().body(badRequest);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ClassNameAlreadyExistsException.class)
-    public ResponseEntity<BadRequest> handleClassNameAlreadyExists(ClassNameAlreadyExistsException ex){
+    public ResponseEntity<BadRequest> handleClassNameAlreadyExists(ClassNameAlreadyExistsException ex) {
         BadRequest badRequest = new BadRequest();
         badRequest.setErrorCode("12345");
         badRequest.setErrorMessage(ex.getMessage());
@@ -38,15 +38,15 @@ public class RequestValidator {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<BadRequest> validator (MethodArgumentNotValidException ex){
+    public ResponseEntity<BadRequest> validator(MethodArgumentNotValidException ex) {
         BadRequest requestFail = new BadRequest();
-        ex.getBindingResult().getAllErrors().forEach(k->{
-            System.out.println("Errors "+ k);
-           requestFail.setField(((FieldError) k).getField());
-           requestFail.setErrorMessage(k.getDefaultMessage());
+        ex.getBindingResult().getAllErrors().forEach(k -> {
+            System.out.println("Errors " + k);
+            requestFail.setField(((FieldError) k).getField());
+            requestFail.setErrorMessage(k.getDefaultMessage());
 
-        //   requestFail.setErrorCode(k.getCode());
-           System.out.println( " Ex is -----"+ex.toString());
+            //   requestFail.setErrorCode(k.getCode());
+            System.out.println(" Ex is -----" + ex.toString());
 //           System.out.println("Default message "+ k.getDefaultMessage()  +"  "+ Arrays.toString(k.getCodes()));
 //           System.out.println("Objectname " + k.getObjectName());
 //          System.out.println ("Rejected   " + ((FieldError) k).getRejectedValue());
@@ -58,7 +58,7 @@ public class RequestValidator {
                         String messageKey = (String) annotation.annotationType()
                                 .getMethod("message")
                                 .invoke(annotation);
-                        requestFail.setErrorCode( messageKey); // Store the message key
+                        requestFail.setErrorCode(messageKey); // Store the message key
                     }
                 }
             } catch (NoSuchFieldException e) {
@@ -68,6 +68,6 @@ public class RequestValidator {
             }
         });
 
-       return  ResponseEntity.badRequest().body(requestFail);
+        return ResponseEntity.badRequest().body(requestFail);
     }
 }

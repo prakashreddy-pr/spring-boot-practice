@@ -20,18 +20,18 @@ public class ClassController {
     ClassService classService;
 
     @PostMapping(value = "/class/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> saveClass(@Validated @RequestBody ClassEntity classEntity){
-      return ResponseEntity.status(201).body(classService.saveClass(classEntity));
+    public ResponseEntity<Object> saveClass(@Validated @RequestBody ClassEntity classEntity) {
+        return ResponseEntity.status(201).body(classService.saveClass(classEntity));
     }
 
     @GetMapping(value = "/class/{className}/details")
-    public ResponseEntity<Object> getClass(@PathVariable String className){
+    public ResponseEntity<Object> getClass(@PathVariable String className) {
         return ResponseEntity.status(200).body(classService.getClass(className));
 
     }
 
-    @DeleteMapping(value="/class/delete")
-    public ResponseEntity<String> deleteClass(@Validated @RequestBody ClassEntity classEntity){
+    @DeleteMapping(value = "/class/delete")
+    public ResponseEntity<String> deleteClass(@Validated @RequestBody ClassEntity classEntity) {
         return ResponseEntity.status(200).body(classService.deleteClass(classEntity.getClassName()));
     }
 }
