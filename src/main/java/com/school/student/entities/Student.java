@@ -1,5 +1,6 @@
 package com.school.student.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.school.student.validator.UniqueName;
 import jakarta.persistence.*;
@@ -31,18 +32,20 @@ public class Student {
     @JsonProperty("version")
     private int version;
 
- //   @Override
-//    public String toString() {
-//        return "Student{" +
-//                "id=" + uuid +
-//                ", name='" + name + '\'' +
-//                ", fatherName='" + fatherName + '\'' +
-//                ", motherName='" + motherName + '\'' +
-//                ", address='" + address + '\'' +
-//                ", teacher='" + teacher + '\'' +
-//                ", version=" + version +
-//                '}';
-//    }
+    @ManyToOne
+    @JoinColumn(name = "class_id")
+    @JsonBackReference
+    @JsonProperty("class")
+    private ClassEntity classEntity;
+
+    public ClassEntity getClassEntity() {
+        return classEntity;
+    }
+
+    public void setClassEntity(ClassEntity classEntity) {
+        this.classEntity = classEntity;
+    }
+
 
     public Student() {
     }
@@ -113,4 +116,20 @@ public class Student {
     public void setTeacher(String teacher) {
         this.teacher = teacher;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "uuid=" + uuid +
+                ", name='" + name + '\'' +
+                ", fatherName='" + fatherName + '\'' +
+                ", motherName='" + motherName + '\'' +
+                ", address='" + address + '\'' +
+                ", teacher='" + teacher + '\'' +
+                ", version=" + version +
+                ", classEntityId=" + (classEntity != null ? classEntity.getId() : null) +
+                '}';
+    }
+
 }
+

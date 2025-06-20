@@ -28,6 +28,15 @@ public class RequestValidator {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ClassNameAlreadyExistsException.class)
+    public ResponseEntity<BadRequest> handleClassNameAlreadyExists(ClassNameAlreadyExistsException ex){
+        BadRequest badRequest = new BadRequest();
+        badRequest.setErrorCode("12345");
+        badRequest.setErrorMessage(ex.getMessage());
+        return ResponseEntity.badRequest().body(badRequest);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<BadRequest> validator (MethodArgumentNotValidException ex){
         BadRequest requestFail = new BadRequest();

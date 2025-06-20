@@ -2,21 +2,14 @@ package com.school.student.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.Collection;
-import java.util.function.Function;
-
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.core.convert.converter.Converter;
 
@@ -35,6 +28,8 @@ public class SecurityConfig {
                                 "/actuator/**").permitAll()
                         .requestMatchers("/api/user").hasAnyRole("USER")
                         .requestMatchers("/api/admin").hasRole("ADMIN")
+                        .requestMatchers("/api/class/**").permitAll()
+                        .requestMatchers("/student/save").hasRole("ADMIN")
                         .requestMatchers("/student/all/student/*/details").hasAnyRole("ADMIN")
                         .anyRequest().authenticated()
                 )
