@@ -24,10 +24,10 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 @EnableKafka
 public class kafkaTopicListeners {
 
-//    @KafkaListener(topics = "saveStudent", groupId = "my-group-id", containerFactory = "kafkaListenerContainerFactory")
-//    public void kafkaListener(Student student) {
-//        System.out.println("Message received " + student.getName());
-//    }
+    @KafkaListener(topics = "saveStudent", groupId = "my-group-id", containerFactory = "kafkaListenerContainerFactory")
+    public void kafkaListener(Student student) {
+        System.out.println("Message received " + student.getName());
+    }
 
     @Bean
     public Map<String, Object> consumerConfigs() {

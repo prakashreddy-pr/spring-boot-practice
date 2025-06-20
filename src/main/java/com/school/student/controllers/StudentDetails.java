@@ -1,11 +1,13 @@
 package com.school.student.controllers;
 
 import com.school.student.DTO.StudentDTO;
+import com.school.student.Services.ClassService;
 import com.school.student.Services.StudentServices;
 import com.school.student.entities.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,8 @@ public class StudentDetails {
 
     @Autowired
     StudentServices studentServices;
+    @Autowired
+    ClassService classService;
 
     @PostMapping(value = "/student/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createStudent(@Validated @RequestBody Student student) {
@@ -36,5 +40,10 @@ public class StudentDetails {
     @GetMapping("/test")
     public ResponseEntity<String> testCircuitBreaker() {
         return studentServices.testCircuitBreaker();
+    }
+
+    @PostMapping(value = "/v2/save", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Student> saveStudent(@RequestBody Student student){
+        return  ResponseEntity.status(200).body(classService.saveStudent(student));
     }
 }
